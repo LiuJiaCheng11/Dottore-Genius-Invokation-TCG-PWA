@@ -1956,34 +1956,27 @@ class GamePlayPage(QPage):
                 )
             )
             info_row.controls.extend((card_info.root_component, dice_info.root_component))
+            traffic_light = QItem(
+                ref_parent=card_info,
+                height_pct=0.6,
+                width_height_pct=1.0,
+                colour="#DBC9AF",
+                border_radius=0x7fffffff,
+            )
+            info_row.controls.append(traffic_light.root_component)
+            light_name = ""
             if game_state.get_player(self._home_pid).in_action_phase():
-                info_row.controls.append(
-                    QImage(
-                        ref_parent=card_info,
-                        height_pct=0.7,
-                        width_height_pct=1.0,
-                        src=f"assets/gif/active.gif",
-                    ).root_component
-                )
+                light_name = "flash_green_A87845"
             elif game_state.get_player(self._home_pid).in_end_phase():
-                info_row.controls.append(
-                    QItem(
-                        ref_parent=card_info,
-                        height_pct=0.7,
-                        width_height_pct=1.0,
-                        border=ft.border.all(3, "#ef8132"),
-                        border_radius=0x7fffffff,
-                        children=(
-                            QItem(
-                                height=3,
-                                width_pct=1.0,
-                                align=QAlign(x_pct=0.5, y_pct=0.5),
-                                colour="#ef8132",
-                                rotate=ft.Rotate(angle=0.25 * pi, alignment=ft.alignment.center),
-                            ),
-                        ),
-                    ).root_component
-                )
+                light_name = "constant_red"
+            else:
+                light_name = "constant_yellow"
+            traffic_light.add_children(QImage(
+                height_pct=1.0,
+                width_pct=1.0,
+                src=f"assets/gif/{light_name}.gif",
+                align=QAlign(x_pct=0.5, y_pct=0.5),
+            ))
             dice_row_item.add_flet_comp((
                 ft.Row(
                     controls=[
@@ -2056,34 +2049,27 @@ class GamePlayPage(QPage):
                 card_info.root_component,
                 dice_info.root_component,
             ))
+            traffic_light = QItem(
+                ref_parent=card_info,
+                height_pct=0.6,
+                width_height_pct=1.0,
+                colour="#DBC9AF",
+                border_radius=0x7fffffff,
+            )
+            info_row.controls.append(traffic_light.root_component)
+            light_name = ""
             if game_state.get_player(self._home_pid.other()).in_action_phase():
-                info_row.controls.append(
-                    QImage(
-                        ref_parent=card_info,
-                        height_pct=0.7,
-                        width_height_pct=1.0,
-                        src=f"assets/gif/active.gif",
-                    ).root_component
-                )
+                light_name = "flash_green_A87845"
             elif game_state.get_player(self._home_pid.other()).in_end_phase():
-                info_row.controls.append(
-                    QItem(
-                        ref_parent=card_info,
-                        height_pct=0.7,
-                        width_height_pct=1.0,
-                        border=ft.border.all(3, "#ef8132"),
-                        border_radius=0x7fffffff,
-                        children=(
-                            QItem(
-                                height=3,
-                                width_pct=0.5,
-                                align=QAlign(x_pct=0.5, y_pct=0.5),
-                                colour="#ef8132",
-                                rotate=ft.Rotate(angle=0.25 * pi, alignment=ft.alignment.center),
-                            ),
-                        ),
-                    ).root_component
-                )
+                light_name = "constant_red"
+            else:
+                light_name = "constant_yellow"
+            traffic_light.add_children(QImage(
+                height_pct=1.0,
+                width_pct=1.0,
+                src=f"assets/gif/{light_name}.gif",
+                align=QAlign(x_pct=0.5, y_pct=0.5),
+            ))
         return item
 
     _SKILL_STR_MAP: dict[ds.CharacterSkill, str] = {
@@ -2236,16 +2222,14 @@ class GamePlayPage(QPage):
                 height_pct=1.0,
                 width_height_pct=1.0,
                 anchor=QAnchor(right=1.0, top=0.0),
-                colour="#A87845",
-                border=ft.border.all(3, "#DBC9AF"),
+                colour="#DBC9AF",
                 border_radius=0x7fffffff,
                 children=(
-                    QItem(
-                        height=3,
-                        width_pct=0.5,
+                    QImage(
+                        height_pct=1.0,
+                        width_pct=1.0,
                         align=QAlign(x_pct=0.5, y_pct=0.5),
-                        colour="#DBC9AF",
-                        rotate=ft.Rotate(angle=0.25 * pi, alignment=ft.alignment.center),
+                        src="assets/gif/constant_red.gif",
                     ),
                 ),
             ),
