@@ -14,6 +14,13 @@ details.
 You should have received a copy of the GNU General Public License along with
 Dottore Genius Invokation PWA. If not, see <https://www.gnu.org/licenses/>
 """
+import sys
+import os
+
+# 添加项目根目录到Python路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path。insert(0, current_dir)
+
 import flet as ft
 
 from src.app import DgisimApp
@@ -27,4 +34,6 @@ ft.app(
     target=main,
     assets_dir="assets",
     # view=ft.AppView.FLET_APP,
+	port=7777,
+    view=ft.AppView.WEB_BROWSER
 )
